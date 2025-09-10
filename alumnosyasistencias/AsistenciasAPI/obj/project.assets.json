@@ -482,19 +482,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\olive\\.nuget\\packages\\": {}
+    "C:\\Users\\Brian\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\olive\\Documents\\pm\\alumnosyasistencias\\AsistenciasAPI\\AsistenciasAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Brian\\Desktop\\Ejercicios Prog Movil\\ejercicio-2\\alumnosyasistencias\\AsistenciasAPI\\AsistenciasAPI.csproj",
       "projectName": "AsistenciasAPI",
-      "projectPath": "C:\\Users\\olive\\Documents\\pm\\alumnosyasistencias\\AsistenciasAPI\\AsistenciasAPI.csproj",
-      "packagesPath": "C:\\Users\\olive\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\olive\\Documents\\pm\\alumnosyasistencias\\AsistenciasAPI\\obj\\",
+      "projectPath": "C:\\Users\\Brian\\Desktop\\Ejercicios Prog Movil\\ejercicio-2\\alumnosyasistencias\\AsistenciasAPI\\AsistenciasAPI.csproj",
+      "packagesPath": "C:\\Users\\Brian\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Brian\\Desktop\\Ejercicios Prog Movil\\ejercicio-2\\alumnosyasistencias\\AsistenciasAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\olive\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Brian\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

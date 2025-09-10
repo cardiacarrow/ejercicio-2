@@ -31,3 +31,37 @@ C:\Users\olive\Documents\pm\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\
 C:\Users\olive\Documents\pm\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.pdb
 C:\Users\olive\Documents\pm\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.genruntimeconfig.cache
 C:\Users\olive\Documents\pm\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\ref\AsistenciasAPI.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\appsettings.json
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\AsistenciasAPI.exe
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\AsistenciasAPI.deps.json
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\AsistenciasAPI.runtimeconfig.json
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\AsistenciasAPI.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\AsistenciasAPI.pdb
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.csproj.AssemblyReference.cache
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.AssemblyInfoInputs.cache
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.AssemblyInfo.cs
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.csproj.CoreCompileInputs.cache
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.sourcelink.json
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\staticwebassets\msbuild.AsistenciasAPI.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\staticwebassets\msbuild.build.AsistenciasAPI.props
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.AsistenciasAPI.props
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.AsistenciasAPI.props
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\scopedcss\bundle\AsistenciasAPI.styles.css
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\Asistenc.77BE1DE9.Up2Date
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\refint\AsistenciasAPI.dll
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.pdb
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\AsistenciasAPI.genruntimeconfig.cache
+C:\Users\Brian\Desktop\Ejercicios Prog Movil\ejercicio-2\alumnosyasistencias\AsistenciasAPI\obj\Debug\net8.0\ref\AsistenciasAPI.dll
