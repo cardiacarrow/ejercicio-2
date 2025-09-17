@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using AsistenciasAPI.Models;
-using Microsoft.Extensions.Caching.Memory;
+using AsistenciasAPI.Data;
 
 namespace AsistenciasAPI.Controllers
 {
@@ -8,80 +9,65 @@ namespace AsistenciasAPI.Controllers
     [Route("api/[controller]")]
     public class AlumnosController : ControllerBase
     {
-        private readonly IMemoryCache _cache;
-        private const string CacheKey = "Alumnos";
+        private readonly ApplicationDbContext _context;
 
-        public AlumnosController(IMemoryCache cache)
+        public AlumnosController(ApplicationDbContext context)
         {
-            _cache = cache;
-            InicializarCache();
-        }
-
-        private void InicializarCache()
-        {
-            if (!_cache.TryGetValue(CacheKey, out List<Alumno>? _))
-            {
-                // 🔹 Inicializamos con lista vacía
-                _cache.Set(CacheKey, new List<Alumno>());
-            }
+            _context = context;
         }
 
         [HttpGet]
-        public IActionResult GetAlumnos()
+        public async Task<IActionResult> GetAlumnos()
         {
-            var alumnos = _cache.Get<List<Alumno>>(CacheKey)!;
+            var alumnos = await _context.Alumnos.ToListAsync();
             return Ok(alumnos);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetAlumno(int id)
+        public async Task<IActionResult> GetAlumno(int id)
         {
-            var alumnos = _cache.Get<List<Alumno>>(CacheKey)!;
-            var alumno = alumnos.FirstOrDefault(a => a.Id == id);
+            var alumno = await _context.Alumnos.FindAsync(id);
             if (alumno == null) return NotFound(new { mensaje = "Alumno no encontrado" });
             return Ok(alumno);
         }
 
         [HttpPost]
-        public IActionResult CrearAlumno([FromBody] Alumno nuevo)
+        public async Task<IActionResult> CrearAlumno([FromBody] Alumno nuevo)
         {
-            var alumnos = _cache.Get<List<Alumno>>(CacheKey)!;
-
-            // Generar ID incremental
-            nuevo.Id = alumnos.Any() ? alumnos.Max(a => a.Id) + 1 : 1;
-
-            alumnos.Add(nuevo);
-            _cache.Set(CacheKey, alumnos);
-
+            _context.Alumnos.Add(nuevo);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAlumno), new { id = nuevo.Id }, nuevo);
         }
 
         [HttpPut("{id}")]
-        public IActionResult ActualizarAlumno(int id, [FromBody] Alumno actualizado)
+        public async Task<IActionResult> ActualizarAlumno(int id, [FromBody] Alumno actualizado)
         {
-            var alumnos = _cache.Get<List<Alumno>>(CacheKey)!;
-            var alumno = alumnos.FirstOrDefault(a => a.Id == id);
+            var alumno = await _context.Alumnos.FindAsync(id);
             if (alumno == null) return NotFound(new { mensaje = "Alumno no encontrado" });
 
             alumno.Nombre = actualizado.Nombre;
             alumno.Matricula = actualizado.Matricula;
             alumno.Grupo = actualizado.Grupo;
 
-            _cache.Set(CacheKey, alumnos);
+            await _context.SaveChangesAsync();
             return Ok(alumno);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult EliminarAlumno(int id)
+        public async Task<IActionResult> EliminarAlumno(int id)
         {
-            var alumnos = _cache.Get<List<Alumno>>(CacheKey)!;
-            var alumno = alumnos.FirstOrDefault(a => a.Id == id);
+            var alumno = await _context.Alumnos.FindAsync(id);
             if (alumno == null) return NotFound(new { mensaje = "Alumno no encontrado" });
 
-            alumnos.Remove(alumno);
-            _cache.Set(CacheKey, alumnos);
-
+            _context.Alumnos.Remove(alumno);
+            await _context.SaveChangesAsync();
             return Ok(new { mensaje = "Alumno eliminado correctamente" });
+        }
+
+        [HttpGet("test-error")]
+        public IActionResult GetError()
+        {
+            throw new Exception("Prueba de error en el middleware");
         }
     }
 }

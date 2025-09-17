@@ -1,18 +1,70 @@
 using AsistenciasAPI.Models;
-using Microsoft.Extensions.Caching.Memory;
+using AsistenciasAPI.Data;
 using AsistenciasAPI.Middleware;
+using Microsoft.EntityFrameworkCore;
+using AsistenciasAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// =======================
+// 📌 Configuración de JWT
+// =======================
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
 
-// Agregar servicios
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+builder.Services.AddAuthorization();
+
+// =======================
+// 📌 Servicios y repositorios
+// =======================
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+// =======================
+// 📌 Otros servicios
+// =======================
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
-builder.Services.AddControllers(); // 👈 Importante para usar tus Controllers
+builder.Services.AddControllers();
+
+// =======================
+// 📌 DbContext
+// =======================
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 21))
+    )
+);
 
 var app = builder.Build();
 
+// =======================
+// 📌 Middleware
+// =======================
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -21,27 +73,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseExceptionMiddleware();
 app.UseHttpsRedirection();
+
+app.UseAuthentication(); // 🔹 JWT
+app.UseAuthorization();  // 🔹 JWT
+
 app.MapControllers();
-app.UseHttpsRedirection();
-
-app.MapControllers(); // 👈 Habilita los controladores de la carpeta Controllers
-
-// =============================
-// 📌 Inicializar listas en cache (vacías)
-// =============================
-using (var scope = app.Services.CreateScope())
-{
-    var cache = scope.ServiceProvider.GetRequiredService<IMemoryCache>();
-
-    if (!cache.TryGetValue("Alumnos", out List<Alumno>? _))
-    {
-        cache.Set("Alumnos", new List<Alumno>()); // lista vacía
-    }
-
-    if (!cache.TryGetValue("Asistencias", out List<Asistencia>? _))
-    {
-        cache.Set("Asistencias", new List<Asistencia>()); // lista vacía
-    }
-}
 
 app.Run();
