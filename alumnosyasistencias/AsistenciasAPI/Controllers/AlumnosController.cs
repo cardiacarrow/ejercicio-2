@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AsistenciasAPI.Models;
 using AsistenciasAPI.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AsistenciasAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize] // 🔒 Todos los endpoints requieren autenticación por defecto
     public class AlumnosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -32,6 +34,7 @@ namespace AsistenciasAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Docente")] // 🔒 Solo Docente puede crear
         public async Task<IActionResult> CrearAlumno([FromBody] Alumno nuevo)
         {
             _context.Alumnos.Add(nuevo);
@@ -40,6 +43,7 @@ namespace AsistenciasAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Docente")] // 🔒 Solo Docente puede editar
         public async Task<IActionResult> ActualizarAlumno(int id, [FromBody] Alumno actualizado)
         {
             var alumno = await _context.Alumnos.FindAsync(id);
@@ -54,6 +58,7 @@ namespace AsistenciasAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Docente")] // 🔒 Solo Docente puede eliminar
         public async Task<IActionResult> EliminarAlumno(int id)
         {
             var alumno = await _context.Alumnos.FindAsync(id);
@@ -65,11 +70,10 @@ namespace AsistenciasAPI.Controllers
         }
 
         [HttpGet("test-error")]
+        [AllowAnonymous] // 🔓 Endpoint de prueba, no requiere token
         public IActionResult GetError()
         {
             throw new Exception("Prueba de error en el middleware");
         }
     }
 }
-
-

@@ -6,10 +6,11 @@ namespace AsistenciasAPI.Models
         public string NombreUsuario { get; set; } = string.Empty;
         public string ContraseñaHash { get; set; } = string.Empty;
         public string NombreCompleto { get; set; } = string.Empty;
-        public string Rol { get; set; }
+        public string Rol { get; set; } = "Docente";
+
 
         // Relación con Docente
-        public int DocenteId { get; set; }
+        public int? DocenteId { get; set; }
         public Docente? Docente { get; set; }
     }
 }

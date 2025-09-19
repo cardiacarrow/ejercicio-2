@@ -26,22 +26,31 @@ namespace AsistenciasAPI.Controllers
         // Registro de usuario
         // ===========================
         [HttpPost("register")]
-        public async Task<IActionResult> Registrar([FromBody] Usuario usuario, [FromQuery] string contraseña)
+        [AllowAnonymous] // ✅ Permitir acceso sin token
+        public async Task<IActionResult> Registrar([FromBody] RegistroRequest request)
         {
-            if (string.IsNullOrEmpty(contraseña))
+            if (string.IsNullOrWhiteSpace(request.Contraseña))
                 return BadRequest(new { mensaje = "La contraseña es obligatoria" });
 
-            var usuarioExistente = await _usuarioService.ObtenerPorNombreUsuarioAsync(usuario.NombreUsuario);
+            var usuarioExistente = await _usuarioService.ObtenerPorNombreUsuarioAsync(request.NombreUsuario);
             if (usuarioExistente != null)
                 return BadRequest(new { mensaje = "El nombre de usuario ya existe" });
 
-            var nuevoUsuario = await _usuarioService.CrearUsuarioAsync(usuario, contraseña);
+            var usuario = new Usuario
+            {
+                NombreUsuario = request.NombreUsuario,
+                NombreCompleto = request.NombreCompleto,
+                Rol = request.Rol
+            };
+
+            var nuevoUsuario = await _usuarioService.CrearUsuarioAsync(usuario, request.Contraseña);
+
             return Ok(new
             {
                 Id = nuevoUsuario.Id,
-                NombreUsuario = nuevoUsuario.NombreUsuario,
-                NombreCompleto = nuevoUsuario.NombreCompleto,
-                Rol = nuevoUsuario.Rol
+                nuevoUsuario.NombreUsuario,
+                nuevoUsuario.NombreCompleto,
+                nuevoUsuario.Rol
             });
         }
 
@@ -49,6 +58,7 @@ namespace AsistenciasAPI.Controllers
         // Login / Autenticación
         // ===========================
         [HttpPost("login")]
+        [AllowAnonymous] // ✅ Permitir acceso sin token
         public async Task<IActionResult> Login([FromBody] LoginRequest login)
         {
             var usuarioValido = await _usuarioService.ValidarUsuarioAsync(login.NombreUsuario, login.Contraseña);
@@ -56,15 +66,17 @@ namespace AsistenciasAPI.Controllers
                 return Unauthorized(new { mensaje = "Usuario o contraseña incorrectos" });
 
             var usuario = await _usuarioService.ObtenerPorNombreUsuarioAsync(login.NombreUsuario);
-            if (usuario == null) return Unauthorized();
+            if (usuario == null)
+                return Unauthorized();
 
             var token = GenerarToken(usuario);
+
             return Ok(new
             {
-                Id = usuario.Id,
-                NombreUsuario = usuario.NombreUsuario,
-                NombreCompleto = usuario.NombreCompleto,
-                Rol = usuario.Rol,
+                usuario.Id,
+                usuario.NombreUsuario,
+                usuario.NombreCompleto,
+                usuario.Rol,
                 Token = token
             });
         }
@@ -72,12 +84,31 @@ namespace AsistenciasAPI.Controllers
         // ===========================
         // Endpoint protegido de prueba
         // ===========================
-        [Authorize(Roles = "Maestro")]
+        [Authorize(Roles = "Docente")] 
         [HttpGet("protegido")]
         public IActionResult Protegido()
         {
-            return Ok(new { mensaje = "Solo los maestros pueden ver esto" });
+            return Ok(new { mensaje = "Solo los docentes pueden ver esto" });
         }
+
+        [Authorize] // Cualquier usuario autenticado puede acceder
+        [HttpGet]
+        public async Task<IActionResult> GetUsuarios()
+        {
+            var usuarios = await _usuarioService.ObtenerTodosAsync();
+
+            // Mapear a un DTO seguro sin ContraseñaHash
+            var usuariosSeguros = usuarios.Select(u => new 
+            {
+                u.Id,
+                u.NombreUsuario,
+                u.NombreCompleto,
+                u.Rol
+            }).ToList();
+
+            return Ok(usuariosSeguros);
+        }
+
 
         // ===========================
         // Método para generar JWT
@@ -106,10 +137,20 @@ namespace AsistenciasAPI.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        // DTO para login
+        // ===========================
+        // DTOs
+        // ===========================
         public class LoginRequest
         {
             public string NombreUsuario { get; set; } = string.Empty;
+            public string Contraseña { get; set; } = string.Empty;
+        }
+
+        public class RegistroRequest
+        {
+            public string NombreUsuario { get; set; } = string.Empty;
+            public string NombreCompleto { get; set; } = string.Empty;
+            public string Rol { get; set; } = "Docente"; // ✅ Rol por defecto
             public string Contraseña { get; set; } = string.Empty;
         }
     }

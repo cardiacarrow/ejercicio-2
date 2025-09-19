@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AsistenciasAPI.Models;
 using AsistenciasAPI.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AsistenciasAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize] // 🔒 Todos los endpoints requieren autenticación
     public class AsistenciasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -37,9 +39,9 @@ namespace AsistenciasAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Docente")] // 🔒 Solo Docente puede registrar asistencias
         public async Task<IActionResult> RegistrarAsistencia([FromBody] Asistencia nueva)
         {
-            // Evitar duplicados
             bool existe = await _context.Asistencias
                 .AnyAsync(a => a.AlumnoId == nueva.AlumnoId && a.Fecha.Date == nueva.Fecha.Date);
 
@@ -52,12 +54,12 @@ namespace AsistenciasAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Docente")] // 🔒 Solo Docente puede actualizar asistencias
         public async Task<IActionResult> ActualizarAsistencia(int id, [FromBody] Asistencia actualizada)
         {
             var asistencia = await _context.Asistencias.FindAsync(id);
             if (asistencia == null) return NotFound(new { mensaje = "Asistencia no encontrada" });
 
-            // Validar duplicado al actualizar
             bool duplicado = await _context.Asistencias
                 .AnyAsync(a => a.Id != id && a.AlumnoId == actualizada.AlumnoId && a.Fecha.Date == actualizada.Fecha.Date);
 
@@ -73,6 +75,7 @@ namespace AsistenciasAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Docente")] // 🔒 Solo Docente puede eliminar asistencias
         public async Task<IActionResult> EliminarAsistencia(int id)
         {
             var asistencia = await _context.Asistencias.FindAsync(id);
